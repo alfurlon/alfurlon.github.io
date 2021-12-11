@@ -133,7 +133,7 @@ public class AliasControllerTest {
     @Test
     void shouldNotDeleteAlias() throws Exception {
         when(repository.deleteById(anyInt())).thenReturn(false);
-        
+
         var request = delete("/api/alias/2");
 
         mvc.perform(request).andExpect(status().isNotFound());
