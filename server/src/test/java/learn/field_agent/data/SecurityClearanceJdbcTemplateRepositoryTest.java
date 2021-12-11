@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 class SecurityClearanceJdbcTemplateRepositoryTest {
@@ -35,5 +37,30 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
 
         actual = repository.findById(3);
         assertEquals(null, actual);
+    }
+
+    @Test
+    void shouldFindAll() {
+        List<SecurityClearance> securityClearances = repository.findAll();
+        assertNotNull(securityClearances);
+
+        assertTrue(securityClearances.size() >= 1);
+    }
+
+    @Test
+    void shouldAdd() {
+        SecurityClearance securityClearance = new SecurityClearance(0, "uber-secret");
+        SecurityClearance actual = repository.add(securityClearance);
+        assertNotNull(actual);
+
+        assertEquals(3, actual.getSecurityClearanceId());
+    }
+
+    @Test
+    void shouldUpdate() {
+        SecurityClearance securityClearance = new SecurityClearance(2, "uber-secret");
+        assertTrue(repository.update(securityClearance));
+        securityClearance.setSecurityClearanceId(10);
+        assertFalse(repository.update(securityClearance));
     }
 }

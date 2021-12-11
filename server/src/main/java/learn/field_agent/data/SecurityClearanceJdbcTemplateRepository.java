@@ -74,6 +74,8 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
 
     @Override
     public boolean deleteById(int securityClearanceId) {
+
+        // List<AgencyAgent> = that select statement in the readMe. Reference addAgencies from Agent
         return false;
     }
 }
