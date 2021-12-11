@@ -2,7 +2,9 @@ package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
 import learn.field_agent.models.Alias;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AliasService {
 
     private final AliasRepository repository;
@@ -12,7 +14,42 @@ public class AliasService {
     }
 
     public Result<Alias> add(Alias alias) {
-        return null;
+        Result<Alias> result = validate(alias);
+
+        if (!result.isSuccess()) {
+            return result;
+        }
+        if (alias.getAliasId() != 0) {
+            result.addMessage("aliasId cannot be set for `add` operation", ResultType.INVALID);
+            return result;
+        }
+
+        alias = repository.add(alias);
+        result.setPayload(alias);
+        return result;
+    }
+
+    public Result<Alias> update(Alias alias) {
+        Result<Alias> result = validate(alias);
+
+        if (!result.isSuccess()) {
+            return result;
+        }
+        if (alias.getAliasId() <= 0) {
+            result.addMessage("aliasId must be set for `update` operation", ResultType.INVALID);
+            return result;
+        }
+
+        if (!repository.update(alias)) {
+            String msg = String.format("aliasId: %s, not found", alias.getAliasId());
+            result.addMessage(msg, ResultType.NOT_FOUND);
+        }
+
+        return result;
+    }
+
+    public boolean deleteById(int aliasId) {
+        return repository.deleteById(aliasId);
     }
 
     private Result<Alias> validate(Alias alias) {
@@ -26,6 +63,8 @@ public class AliasService {
         if (Validations.isNullOrBlank(alias.getName())) {
             result.addMessage("name is required", ResultType.INVALID);
         }
+
+        // need validation for if name is duplicate persona is required. Need to loop through agent and check all their aliases.
 
         return result;
     }
