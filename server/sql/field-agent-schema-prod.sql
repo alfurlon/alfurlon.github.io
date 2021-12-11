@@ -97,6 +97,6 @@ create table alias (
 );
 
 -- data
-insert into security_clearance values
-	(1, 'Secret'),
-    (2, 'Top Secret');
+-- insert into security_clearance values
+-- 	(1, 'Secret'),
+--     (2, 'Top Secret');

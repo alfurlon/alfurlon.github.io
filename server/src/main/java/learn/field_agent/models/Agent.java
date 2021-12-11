@@ -14,6 +14,8 @@ public class Agent {
     private int heightInInches;
     private List<AgentAgency> agencies = new ArrayList<>();
 
+    // no list for aliases because there is no alias model. Create alias model.
+
     public int getAgentId() {
         return agentId;
     }
