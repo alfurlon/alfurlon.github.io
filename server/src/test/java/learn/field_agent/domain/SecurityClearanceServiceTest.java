@@ -82,5 +82,5 @@ public class SecurityClearanceServiceTest {
         assertEquals("securityClearanceId must be set for `update` operation", actual.getMessages().get(0));
     }
 
-    
+
 }

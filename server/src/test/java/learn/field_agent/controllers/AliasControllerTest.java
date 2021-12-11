@@ -96,8 +96,6 @@ public class AliasControllerTest {
         aliasIn.setAliasId(1);
         aliasIn.setName("");
 
-        when(repository.update(any())).thenReturn(true);
-
         ObjectMapper mapper = new ObjectMapper();
         String jsonIn = mapper.writeValueAsString(aliasIn);
 
