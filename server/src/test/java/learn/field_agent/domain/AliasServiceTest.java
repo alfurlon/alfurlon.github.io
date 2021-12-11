@@ -2,7 +2,6 @@ package learn.field_agent.domain;
 
 import learn.field_agent.data.AliasRepository;
 import learn.field_agent.models.Alias;
-import learn.field_agent.models.Location;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
