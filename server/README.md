@@ -18,7 +18,7 @@ _If the trainee followed instructions during kickoff, they should have an HTTP f
 * [ ] For DELETE return a 400 if the security clearance is in use 
 
 ### Alias
-* [ ] create model for alias
+* [x] create model for alias
 * [ ] GET an agent record with aliases attached
 * [ ] POST an alias
 * [ ] For POST return a 400 if the alias fails one of the domain rules
@@ -89,25 +89,25 @@ Fails (conflict): 409, id is currently in use
 
 _Refer to AgentController class for the below methods_
 
-create SecurityClearanceController
+* [ ] create SecurityClearanceController
 
-findAll()
-findById()
-add()
-update()
-deleteById() Result<SecurityClearance>
+* [ ] findAll()
+* [ ] findById()
+* [ ] add()
+* [ ] update()
+* [ ] deleteById() Result<SecurityClearance>
 
 ### Domain
 
 _Refer to AgentService_
-create SecurityClearanceService
-create SecurityClearanceServiceTest (mock or no?)
+* [ ] create SecurityClearanceService
+* [ ] create SecurityClearanceServiceTest (mock or no?)
 
-findAll()
-findById()
-add()
-update()
-deleteById() Result<SecurityClearance> Check for domain rules before going into the repository.deleteByid
+* [ ] findAll()
+* [ ] findById()
+* [ ] add()
+* [ ] update()
+* [ ] deleteById() Result<SecurityClearance> Check for domain rules before going into the repository.deleteByid
 
 #### Domain Rules
 
@@ -135,10 +135,10 @@ create SecurityClearanceRepository (interface)
 
 ### Alias Model
 
-* [ ] private int aliasId
-* [ ] private String name
-* [ ] private String persona
-* [ ] private int agentId
+* [x] private int aliasId
+* [x] private String name
+* [x] private String persona
+* [x] private int agentId
 
 ### Http Requests
 
@@ -189,25 +189,25 @@ Fails: 404
 
 _Refer to AgentController class for the below methods_
 
-create AliasController
+* [ ] create AliasController
 
 findAll()??
 findById()??
-add()
-update()
-deleteById() Result<Alias>??
+* [ ] add()
+* [ ] update()
+* [ ] deleteById() Result<Alias>??
 
 ### Domain
 
 _Refer to AgentService_
-create AliasService
-create AliasServiceTest (Mock or no?)
+* [ ] create AliasService
+* [ ] create AliasServiceTest (Mock or no?)
 
 findAll()??
 findById()??
-add()
-update()
-deleteById() Result<Alias> Check for domain rules before going into the repository.deleteByid???
+* [ ] add()
+* [ ] update()
+* [ ] deleteById() Result<Alias> Check for domain rules before going into the repository.deleteByid???
 
 #### Domain Rules
 
@@ -217,10 +217,10 @@ deleteById() Result<Alias> Check for domain rules before going into the reposito
 
 ### Data Layer
 
-create AliasJdbcTemplateRepository
-create AliasRepository (interface)
-create AliasMapper
-creat tests
+* [ ] create AliasJdbcTemplateRepository
+* [ ] create AliasRepository (interface)
+* [ ] create AliasMapper
+* [ ] creat tests
 
 **To support testing, update the set known good state procedure as needed**
 

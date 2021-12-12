@@ -13,8 +13,15 @@ public class Agent {
     private LocalDate dob;
     private int heightInInches;
     private List<AgentAgency> agencies = new ArrayList<>();
+    private List<Alias> aliases = new ArrayList<>();
 
-    // no list for aliases because there is no alias model. Create alias model.
+    public List<Alias> getAliases() {
+        return aliases;
+    }
+
+    public void setAliases(List<Alias> aliases) {
+        this.aliases = aliases;
+    }
 
     public int getAgentId() {
         return agentId;

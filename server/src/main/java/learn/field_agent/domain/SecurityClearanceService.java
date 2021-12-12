@@ -74,6 +74,20 @@ public class SecurityClearanceService {
             result.addMessage("securityClearance name is required", ResultType.INVALID);
         }
 
+        if (isDuplicate(securityClearance)) {
+            result.addMessage("Duplicate security clearances not allowed.", ResultType.INVALID);
+        }
+
         return result;
+    }
+
+    private boolean isDuplicate(SecurityClearance securityClearance) {
+        List<SecurityClearance> securityClearanceList = repository.findAll();
+        for (SecurityClearance s : securityClearanceList) {
+            if (securityClearance.getName().equals(s.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

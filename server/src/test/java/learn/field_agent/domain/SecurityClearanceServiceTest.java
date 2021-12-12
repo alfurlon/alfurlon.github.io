@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,6 +56,24 @@ public class SecurityClearanceServiceTest {
     }
 
     @Test
+    void shouldNotAddDuplicate() {
+        SecurityClearance securityClearance = new SecurityClearance(0, "Top Secret");
+
+        List<SecurityClearance> securityClearanceList = List.of(
+                new SecurityClearance(1, "Secret"),
+                new SecurityClearance(2, "Top Secret"),
+                new SecurityClearance(3, "basic")
+        );
+
+        when(repository.findAll()).thenReturn(securityClearanceList);
+
+        Result<SecurityClearance> actual = service.add(securityClearance);
+
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Duplicate security clearances not allowed.", actual.getMessages().get(0));
+    }
+
+    @Test
     void shouldUpdate() {
         SecurityClearance securityClearance = new SecurityClearance(1, "Uber Secret");
 
@@ -82,5 +102,23 @@ public class SecurityClearanceServiceTest {
         assertEquals("securityClearanceId must be set for `update` operation", actual.getMessages().get(0));
     }
 
+    @Test
+    void shouldNotUpdateToDuplicate() {
+        SecurityClearance securityClearance = new SecurityClearance(2, "Top Secret");
 
+        List<SecurityClearance> securityClearanceList = List.of(
+                new SecurityClearance(1, "Secret"),
+                new SecurityClearance(2, "Top Secret"),
+                new SecurityClearance(3, "basic")
+        );
+
+        when(repository.findAll()).thenReturn(securityClearanceList);
+
+        securityClearance.setName("basic");
+
+        Result<SecurityClearance> actual = service.update(securityClearance);
+
+        assertEquals(ResultType.INVALID, actual.getType());
+        assertEquals("Duplicate security clearances not allowed.", actual.getMessages().get(0));
+    }
 }
