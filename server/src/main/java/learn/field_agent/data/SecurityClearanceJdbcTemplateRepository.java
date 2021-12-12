@@ -1,12 +1,20 @@
 package learn.field_agent.data;
 
+import learn.field_agent.data.mappers.AgencyAgentMapper;
 import learn.field_agent.data.mappers.SecurityClearanceMapper;
+import learn.field_agent.domain.Result;
+import learn.field_agent.domain.ResultType;
+import learn.field_agent.models.AgencyAgent;
 import learn.field_agent.models.SecurityClearance;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.List;
@@ -73,9 +81,41 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
     }
 
     @Override
-    public boolean deleteById(int securityClearanceId) {
+    public Result<SecurityClearance> deleteById(int securityClearanceId) {
+        Result<SecurityClearance> result = new Result<>();
+        SecurityClearance securityClearance = findById(securityClearanceId);
+        if (securityClearance == null) {
+            result.addMessage("securityClearance not found.", ResultType.NOT_FOUND);
+            return result;
+        }
+        List<Integer> agencyAgents = checkForReference(securityClearance);
 
-        // List<AgencyAgent> = that select statement in the readMe. Reference addAgencies from Agent
-        return false;
+        if (agencyAgents.get(0) > 0) {
+            result.addMessage("Cannot delete security clearance that is in use.", ResultType.INVALID);
+            return result;
+        }
+
+        if (jdbcTemplate.update("delete from security_clearance where security_clearance_id = ?;", securityClearanceId) > 0) {
+            result.addMessage("Success", ResultType.SUCCESS);
+            return result;
+        }
+
+        return result;
     }
+
+    private List<Integer> checkForReference(SecurityClearance securityClearance) {
+
+        final String sql = "select count(*) from agency_agent where security_clearance_id = ?;";
+
+        var count = jdbcTemplate.query(sql,
+                intMapper,
+                securityClearance.getSecurityClearanceId());
+        return count;
+    }
+
+    private final RowMapper<Integer> intMapper = (resultSet, i) -> {
+        int count = 0;
+        count = resultSet.getInt("count(*)");
+        return count;
+    };
 }

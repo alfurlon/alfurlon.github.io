@@ -1,6 +1,8 @@
 package learn.field_agent.data;
 
+import learn.field_agent.domain.Result;
 import learn.field_agent.models.SecurityClearance;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -14,5 +16,5 @@ public interface SecurityClearanceRepository {
 
     boolean update(SecurityClearance securityClearance);
 
-    boolean deleteById(int securityClearanceId);
+    Result<SecurityClearance> deleteById(int securityClearanceId);
 }

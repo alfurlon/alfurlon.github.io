@@ -1,5 +1,7 @@
 package learn.field_agent.data;
 
+import learn.field_agent.domain.Result;
+import learn.field_agent.domain.ResultType;
 import learn.field_agent.models.SecurityClearance;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -62,5 +64,23 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
         assertTrue(repository.update(securityClearance));
         securityClearance.setSecurityClearanceId(10);
         assertFalse(repository.update(securityClearance));
+    }
+
+    @Test
+    void shouldDelete() {
+        Result<SecurityClearance> actual = repository.deleteById(2);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+    }
+
+    @Test
+    void shouldNotDeleteReferencedSecurityClearance() {
+        Result<SecurityClearance> actual = repository.deleteById(1);
+        assertEquals(ResultType.INVALID, actual.getType());
+    }
+
+    @Test
+    void shouldNotDeleteNotExisting() {
+        Result<SecurityClearance> actual = repository.deleteById(10);
+        assertEquals(ResultType.NOT_FOUND, actual.getType());
     }
 }
