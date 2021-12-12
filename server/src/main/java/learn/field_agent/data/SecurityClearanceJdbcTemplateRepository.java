@@ -97,7 +97,6 @@ public class SecurityClearanceJdbcTemplateRepository implements SecurityClearanc
 
         if (jdbcTemplate.update("delete from security_clearance where security_clearance_id = ?;", securityClearanceId) > 0) {
             result.addMessage("Success", ResultType.SUCCESS);
-            return result;
         }
 
         return result;

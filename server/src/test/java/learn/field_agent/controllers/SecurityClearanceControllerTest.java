@@ -3,6 +3,8 @@ package learn.field_agent.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import learn.field_agent.data.SecurityClearanceRepository;
+import learn.field_agent.domain.Result;
+import learn.field_agent.domain.ResultType;
 import learn.field_agent.models.SecurityClearance;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,5 +155,36 @@ public class SecurityClearanceControllerTest {
         mvc.perform(request).andExpect(status().isNotFound());
     }
 
-    // need to test delete after it is added
+    @Test
+    void shouldDeleteSecurityClearance() throws Exception {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("Success", ResultType.SUCCESS);
+        when(repository.deleteById(anyInt())).thenReturn(expected);
+
+        var request = delete("/api/security/clearance/1");
+
+        mvc.perform(request).andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldNotDeleteIfReferenced() throws Exception {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("cannot delete if referenced", ResultType.INVALID);
+        when(repository.deleteById(anyInt())).thenReturn(expected);
+
+        var request = delete("/api/security/clearance/1");
+
+        mvc.perform(request).andExpect(status().isConflict());
+    }
+
+    @Test
+    void shouldNotDeleteIfNotFound() throws Exception {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("cannot delete if referenced", ResultType.NOT_FOUND);
+        when(repository.deleteById(anyInt())).thenReturn(expected);
+
+        var request = delete("/api/security/clearance/1");
+
+        mvc.perform(request).andExpect(status().isNotFound());
+    }
 }

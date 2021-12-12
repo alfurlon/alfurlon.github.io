@@ -60,7 +60,9 @@ public class SecurityClearanceService {
         return result;
     }
 
-    // need delete added later
+    public Result<SecurityClearance> deleteById(int securityClearanceId) {
+        return repository.deleteById(securityClearanceId);
+    }
 
     private Result<SecurityClearance> validate(SecurityClearance securityClearance) {
         Result<SecurityClearance> result = new Result<>();

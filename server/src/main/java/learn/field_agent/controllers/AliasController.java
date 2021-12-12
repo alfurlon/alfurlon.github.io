@@ -18,8 +18,6 @@ public class AliasController {
         this.service = service;
     }
 
-    // GetMapping for agent needed
-
     @PostMapping
     public ResponseEntity<Object> add(@RequestBody Alias alias) {
         Result<Alias> result = service.add(alias);

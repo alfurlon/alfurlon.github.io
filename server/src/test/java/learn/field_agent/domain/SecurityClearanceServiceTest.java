@@ -121,4 +121,31 @@ public class SecurityClearanceServiceTest {
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("Duplicate security clearances not allowed.", actual.getMessages().get(0));
     }
+
+    @Test
+    void shouldDelete() {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("Success", ResultType.SUCCESS);
+        when(repository.deleteById(2)).thenReturn(expected);
+        Result<SecurityClearance> actual = service.deleteById(2);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+    }
+
+    @Test
+    void shouldNotDeleteIfReferenced() {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("securityClearance is referenced.", ResultType.INVALID);
+        when(repository.deleteById(anyInt())).thenReturn(expected);
+        Result<SecurityClearance> actual = repository.deleteById(1);
+        assertEquals(ResultType.INVALID, actual.getType());
+    }
+
+    @Test
+    void shouldNotDeleteIfNotFound() {
+        Result<SecurityClearance> expected = new Result<>();
+        expected.addMessage("Not found", ResultType.NOT_FOUND);
+        when(repository.deleteById(anyInt())).thenReturn(expected);
+        Result<SecurityClearance> actual = repository.deleteById(10);
+        assertEquals(ResultType.NOT_FOUND, actual.getType());
+    }
 }
