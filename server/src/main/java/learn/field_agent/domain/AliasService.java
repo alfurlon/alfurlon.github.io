@@ -4,6 +4,8 @@ import learn.field_agent.data.AliasRepository;
 import learn.field_agent.models.Alias;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AliasService {
 
@@ -11,6 +13,10 @@ public class AliasService {
 
     public AliasService(AliasRepository repository) {
         this.repository = repository;
+    }
+
+    public List<Alias> findAll() {
+        return repository.findAll();
     }
 
     public Result<Alias> add(Alias alias) {
@@ -64,8 +70,20 @@ public class AliasService {
             result.addMessage("name is required", ResultType.INVALID);
         }
 
-        // need validation for if name is duplicate persona is required. Need to loop through agent and check all their aliases.
+        if (isDuplicate(alias) && Validations.isNullOrBlank(alias.getPersona())) {
+            result.addMessage("persona is required if name is duplicated.", ResultType.INVALID);
+        }
 
         return result;
+    }
+
+    private boolean isDuplicate(Alias alias) {
+        List<Alias> aliases = repository.findAll();
+        for (Alias a : aliases) {
+            if (alias.getName().equals(a.getName())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -36,6 +38,23 @@ public class AliasServiceTest {
     }
 
     @Test
+    void shouldAddIfNameIsDuplicateButPersonaIsNotNull() {
+        Alias alias = makeAlias();
+        alias.setPersona("Nelly");
+
+        List<Alias> aliasList = List.of(
+                new Alias(1, "Boss", "Junior", 3),
+                new Alias(2, "Duchess", null, 1),
+                new Alias(3, "Brown", null, 2)
+        );
+
+        when(repository.findAll()).thenReturn(aliasList);
+
+        Result<Alias> actual = service.add(alias);
+        assertEquals(ResultType.SUCCESS, actual.getType());
+    }
+
+    @Test
     void shouldNotAddWhenInvalid() {
         Alias alias = null;
         Result<Alias> actual = service.add(alias);
@@ -47,6 +66,24 @@ public class AliasServiceTest {
         actual = service.add(alias);
         assertEquals(ResultType.INVALID, actual.getType());
         assertEquals("name is required", actual.getMessages().get(0));
+    }
+
+    @Test
+    void shouldNotAddDuplicateNameWithoutPersona() {
+        Alias alias = makeAlias();
+
+        List<Alias> aliasList = List.of(
+                new Alias(1, "Boss", "Junior", 3),
+                new Alias(2, "Duchess", null, 1),
+                new Alias(3, "Brown", null, 2)
+        );
+
+        when(repository.findAll()).thenReturn(aliasList);
+
+        Result<Alias> result = service.add(alias);
+
+        assertEquals(ResultType.INVALID, result.getType());
+        assertEquals("persona is required if name is duplicated.", result.getMessages().get(0));
     }
 
     @Test

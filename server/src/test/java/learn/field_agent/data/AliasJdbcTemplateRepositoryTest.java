@@ -8,6 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.List;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class AliasJdbcTemplateRepositoryTest {
 
@@ -20,6 +22,15 @@ public class AliasJdbcTemplateRepositoryTest {
     @BeforeEach
     void setup() {
         knownGoodState.set();
+    }
+
+    @Test
+    void shouldFindAll() {
+        List<Alias> aliasList = repository.findAll();
+
+        assertNotNull(aliasList);
+
+        assertTrue(aliasList.size() > 1);
     }
 
     @Test
