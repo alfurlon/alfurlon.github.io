@@ -168,8 +168,3 @@ begin
 end //
 -- 4. Change the statement terminator back to the original.
 delimiter ;
-
--- data.. this is an issue!
--- insert into security_clearance values
--- 	(1, 'Secret'),
---     (2, 'Top Secret');
