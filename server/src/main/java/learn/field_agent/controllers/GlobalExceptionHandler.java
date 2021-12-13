@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleException(Exception ex) { 
+    public ResponseEntity<String> handleException(Exception ex) {
         return new ResponseEntity<String>(
                 "Sorry, not sorry",
                 HttpStatus.INTERNAL_SERVER_ERROR);

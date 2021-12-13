@@ -60,7 +60,7 @@ class SecurityClearanceJdbcTemplateRepositoryTest {
 
     @Test
     void shouldUpdate() {
-        SecurityClearance securityClearance = new SecurityClearance(2, "uber-secret");
+        SecurityClearance securityClearance = new SecurityClearance(1, "uber-secret");
         assertTrue(repository.update(securityClearance));
         securityClearance.setSecurityClearanceId(10);
         assertFalse(repository.update(securityClearance));

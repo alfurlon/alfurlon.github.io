@@ -31,13 +31,13 @@ use field_agent;
 		('Phylys','Y','Howitt','1979-03-28',68);
         
 	insert into alias
-		(alias_id, name, persona, agent_id)
+		(name, persona, agent_id)
 	values
-		(1, 'Duchess', null, 1),
-        (2, 'Winter Soldier', null, 7),
-        (3, 'Beans', null, 3),
-        (4, 'Chef', 'Sushi', 5),
-        (5, 'Chef', 'Junior', 2);
+		('Duchess', null, 1),
+        ('Winter Soldier', null, 7),
+        ('Beans', null, 3),
+        ('Chef', 'Sushi', 5),
+        ('Chef', 'Junior', 2);
         
 	insert into agency_agent 
 		(agency_id, agent_id, identifier, security_clearance_id, activation_date)
