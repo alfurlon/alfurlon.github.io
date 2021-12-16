@@ -99,6 +99,8 @@ public class AgentJdbcTemplateRepository implements AgentRepository {
     @Transactional
     public boolean deleteById(int agentId) {
         jdbcTemplate.update("delete from agency_agent where agent_id = ?;", agentId);
+        // jdbctemplate delete from alias.
+        jdbcTemplate.update("delete from alias where agent_id = ?", agentId);
         return jdbcTemplate.update("delete from agent where agent_id = ?;", agentId) > 0;
     }
 

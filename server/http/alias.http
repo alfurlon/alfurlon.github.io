@@ -6,7 +6,7 @@ Content-Type: application/json
 {
     "name": "Cheesehead",
     "persona": "big",
-    "agent_id": 4
+    "agentId": 3
 }
 
 ###
