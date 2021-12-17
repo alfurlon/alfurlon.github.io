@@ -1,8 +1,3 @@
-use field_agent_test;
+use field_agent;
 
-insert into alias
-	(name, persona, agent_id)
-values
-	("Cheesehead", "big", 8);
-    
-select * from alias;
+select * from agent;
