@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class AgentAgency {
 
+    // this is the one to ignore
+
     private int agentId;
     private String identifier;
     private LocalDate activationDate;

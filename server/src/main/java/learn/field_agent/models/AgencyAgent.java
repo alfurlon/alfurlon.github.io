@@ -4,6 +4,8 @@ import java.time.LocalDate;
 
 public class AgencyAgent {
 
+    // this is the primary model
+
     private int agencyId;
     private String identifier;
     private LocalDate activationDate;
