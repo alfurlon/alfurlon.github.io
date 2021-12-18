@@ -7,7 +7,7 @@ function ViewAgents() {
 
     const [currentView, setCurrentView] = useState("view");
     const [currentAgent, setCurrentAgent] = useState();
-    const [Agents, setAgents] = useState([]);
+    const [agents, setAgents] = useState([]);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -22,13 +22,19 @@ function ViewAgents() {
         fetchAll();
     }, []);
 
+    const confirmDeleteAgent = (agent) => {
+        setCurrentAgent(agent);
+        setCurrentView("delete");
+    }
+
     const addAgent = () => {
         setCurrentAgent();
         setCurrentView("form");
     }
 
-    const editAgent = () => {
-        
+    const editAgent = (agent) => {
+        setCurrentAgent(agent);
+        setCurrentView("form");
     }
 
     const cancel = () => {
@@ -42,6 +48,20 @@ function ViewAgents() {
         } else {
             createAgent(agent);
         }
+        setCurrentView("view");
+    }
+
+    const handleDelete = async () => {
+        const url = `http://localhost:8080/api/agent/${currentAgent.agentId}`;
+        const init = {
+            method: "DELETE"
+        };
+        const response = await fetch(url, init);
+        if (response.status !== 204) {
+            Promise.reject("Could not delete agent!");
+        }
+        const nextAgents = agents.filter(a => a.agentId !== currentAgent.agentId);
+        setAgents(nextAgents);
         setCurrentView("view");
     }
 
@@ -61,12 +81,29 @@ function ViewAgents() {
             Promise.reject("Agent not created.");
         }
         const agentJson = await response.json();
-        const nextAgents = [...Agents, agentJson];
+        const nextAgents = [...agents, agentJson];
         setAgents(nextAgents);
     }
 
     const updateAgent = async (agent) => {
-
+        const url = `http://localhost:8080/api/agent/${agent.agentId}`;
+        const init = {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "PUT",
+            body: JSON.stringify(agent)
+        };
+        const response = await fetch(url, init);
+        if (response.status !== 204) {
+            Promise.reject(`Could not update agent: ${agent.agentId}`);
+        }
+        const agentIndex = agents.findIndex(a => a.agentId === agent.agentId);
+        if (agentIndex > -1) {
+            const nextAgents = [...agents];
+            nextAgents.splice(agentIndex, 1, agent);
+            setAgents(nextAgents);
+        }
     }
 
 
@@ -74,7 +111,7 @@ function ViewAgents() {
         return <AgentForm agent={currentAgent} onSave={handleSave} onCancel={cancel}/>
 
     } else if (currentView === "delete") {
-
+        return <ConfirmDelete agent={currentAgent} onConfirm={handleDelete} onCancel={cancel} />
     }
 
     return <>
@@ -93,7 +130,7 @@ function ViewAgents() {
                     </tr>
                 </thead>
                 <tbody>
-                    {Agents.map(a => <Agent key={a.agentId} agent={a} />)}
+                    {agents.map(a => <Agent key={a.agentId} agent={a} onEditAgent={editAgent} onDeleteAgent={confirmDeleteAgent}/>)}
                 </tbody>
                 </table>
     </>
