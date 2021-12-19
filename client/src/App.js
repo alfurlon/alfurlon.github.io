@@ -44,7 +44,7 @@ function App() {
     return <>
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-6">
+        <div className="col-5">
             <h1>Security Clearances</h1>
         </div>
       </div>
