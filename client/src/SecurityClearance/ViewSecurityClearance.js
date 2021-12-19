@@ -113,22 +113,29 @@ function ViewSecurityClearance() {
     }
 
     return <>
-                <div>
-                    <button className="btn btn-outline-info" onClick={addSecClearance}>Add Security Clearance</button>
+            <div className="container">
+                <div className="row justify-content-center">
+                    <div className="col-4">
+                        <button className="btn btn-info" onClick={addSecClearance}>Add Security Clearance</button>
+                    </div>
                 </div>
-                <table className="table table-dark table-hover">
-                <thead>
-                    <tr>
-                    <th scope="col">Security Clearance Id</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {secClearances.map(s => <SecurityClearance key={s.securityClearanceId} secClearance={s} onEditSecurityClearance={editSecClearance} onDeleteSecurityClearance={confirmDeleteSecurityClearance}/>)}
-                </tbody>
-                </table>
+                <div className="row">
+                    <table className="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col">Security Clearance Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {secClearances.map(s => <SecurityClearance key={s.securityClearanceId} secClearance={s} onEditSecurityClearance={editSecClearance} onDeleteSecurityClearance={confirmDeleteSecurityClearance}/>)}
+                    </tbody>
+                    </table>
+
+                </div>
+            </div>
     </>
 }
 

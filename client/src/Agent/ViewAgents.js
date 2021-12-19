@@ -115,9 +115,13 @@ function ViewAgents() {
     }
 
     return <>
-                <div>
-                    <button className="btn btn-outline-info" onClick={addAgent}>Add Agent</button>
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-3">
+                    <button className="btn btn-info" onClick={addAgent}>Add Agent</button>
                 </div>
+            </div>
+            <div className="row">
                 <table className="table table-dark table-hover">
                 <thead>
                     <tr>
@@ -133,6 +137,9 @@ function ViewAgents() {
                     {agents.map(a => <Agent key={a.agentId} agent={a} onEditAgent={editAgent} onDeleteAgent={confirmDeleteAgent}/>)}
                 </tbody>
                 </table>
+
+            </div>
+        </div>
     </>
 }
 

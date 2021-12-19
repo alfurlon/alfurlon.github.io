@@ -22,39 +22,61 @@ function App() {
 
   if (currentView === "agent") {
     return <>
-          <div>
-            <h1>Agents</h1>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-3">
+              <h1>Agents</h1>
+            </div>
           </div>
-          <div>
-            <ViewAgents />
+          <div className="row">
+            <div className="col">
+              <ViewAgents />
+            </div>
           </div>
-          <div>
-            <button className="btn btn-info" onClick={goToApp}>Main Menu</button>
+          <div className="row">
+            <div className="col">
+              <button className="btn btn-info" onClick={goToApp}>Main Menu</button>
+            </div>
           </div>
+        </div>
     </>
   } else if (currentView === "sec") {
     return <>
-      <div>
-        <h1>Security Clearances</h1>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-6">
+            <h1>Security Clearances</h1>
+        </div>
       </div>
-      <div>
-        <ViewSecurityClearance />
+      <div className="row">
+        <div className="col">
+            <ViewSecurityClearance />
+        </div>
       </div>
-      <div>
+      <div className="row">
+        <div className="col">
             <button className="btn btn-info" onClick={goToApp}>Main Menu</button>
+        </div>
       </div>
+    </div>
     </>
   }
 
 
   return (<>
     <div className="container">
-      <div>
-          <h1>Field Agents</h1>
+      <div className="row justify-content-center">
+        <div className="col-6">
+            <h1 className="display-1">Field Agents</h1>
+        </div>
       </div>
-      <div>
-          <button className="btn btn-dark" onClick={editAgents}>Agents</button>
-          <button className="btn btn-dark" onClick={editSecurityClearances}>Security Clearances</button>
+      <div className="row justify-content-evenly">
+        <div className="col-3">
+            <button className="btn btn-dark" onClick={editAgents}>Agents</button>
+        </div>
+        <div className="col-3">
+            <button className="btn btn-dark" onClick={editSecurityClearances}>Security Clearances</button>
+        </div>
       </div>
     </div>
   </>
