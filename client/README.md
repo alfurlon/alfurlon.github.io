@@ -1,70 +1,99 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React Field Agent Assessment
 
-## Available Scripts
+## Tasks
 
-In the project directory, you can run:
+_TODO_ Add time estimates to each of the top-level tasks
 
-### `npm start`
+* [ ] Create a new GitHub repo for this assessment or continue working in the repo from last week's Field Agent API repository (#.# hours)
+  * [ ] **When creating your repo, be sure to add a `.gitignore` file using the GitHub Node template**
+  * [ ] Update the README with the contents from this file
+  * [ ] Add the instruction team as collaborators
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* [ ] Review the requirements (#.# hours)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* [ ] Identify any research that I need to do (#.# hours)
 
-### `npm test`
+### Part 1: Project Setup and Agents List
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* [ ] Create a new React project with CRA (create-react-app)
+  * [ ] Remove the cruft (refer back to the Components and JSX exercise for instructions)
 
-### `npm run build`
+* [ ] Add Bootstrap to the `public/index.html` file
+  * [ ] Add a link to the Bootstrap CSS using the [CDN from the official docs](https://getbootstrap.com/docs/4.6/getting-started/introduction/#css)
+  * [ ] Add the [`container` CSS class](https://getbootstrap.com/docs/4.6/layout/overview/#containers) to the `<div id="root"></div>` element
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* [ ] Create `Agents` component (stub)
+  * [ ] Update `App` component to render `Agents`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* [ ] Update `Agents` to render list of agents
+  * [ ] Use `fetch` to `GET` a list of agents from the Field Agent API when the component is first loaded
+  * [ ] Write JSX to render the agents array
+  * [ ] Stub out click event handlers ("Add Agent", "Edit Agent", "Delete Agent") as necessary
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Make sure that my GitHub repo is updated!**
 
-### `npm run eject`
+### Part 2: Add Agent and Delete Agent
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+* [ ] Create a form to add an agent
+  * [ ] Add form JSX
+  * [ ] Decide between using individual state variables for input elements or a single object
+  * [ ] Add onChange event handlers to input elements
+  * [ ] Add onSubmit event handler to form element (be sure to prevent the form from submitting!)
+  * [ ] Create agent object
+  * [ ] Use `fetch` to `POST` the new agent's information to the Field Agent API
+  * [ ] On success, update the agents array (don't modify the original array!), or on failure, display any validation errors from the API in the UI
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* [ ] Support deleting agents
+  * [ ] Store the "delete agent ID" in a new state variable
+  * [ ] Retrieve the agent to delete
+  * [ ] Update form state variable(s)
+  * [ ] Add delete confirmation JSX
+  * [ ] Add button click handler to perform the delete
+  * [ ] Use `fetch` to `DELETE` the agent from the Field Agent API
+  * [ ] On success, update the agents array (don't modify the original array!)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* [ ] Conditionally render sections of the component
+  * [ ] Add state variable to track the current view
+  * [ ] Add conditional logic to the JSX to display the appropriate view
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Make sure that my GitHub repo is updated!**
 
-## Learn More
+### Part 3: Edit Agent
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+* [ ] Support editing agents
+  * [ ] Store the "edit agent ID" in a new state variable
+  * [ ] Retrieve the agent to edit
+  * [ ] Update form state variable(s)
+  * [ ] Add form JSX
+  * [ ] Add onChange event handlers to input elements
+  * [ ] Add onSubmit event handler to form element (be sure to prevent the form from submitting!)
+  * [ ] Create agent object
+  * [ ] Use `fetch` to `PUT` the updated agent's information to the Field Agent API
+  * [ ] On success, update the agents array (don't modify the original array!), or on failure, display any validation errors from the API in the UI
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* [ ] Apply Bootstrap styling (as needed)
+  * [ ] Update the agents list
+  * [ ] Update the add agent form
+  * [ ] Update the edit agent form
+  * [ ] Update the delete agent confirmation
 
-### Code Splitting
+* [ ] Use the provided test plan to manually test the application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Make sure that my GitHub repo is updated!**
 
-### Analyzing the Bundle Size
+## High-Level Requirements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Implement a full CRUD UI for agents.
 
-### Making a Progressive Web App
+* Display all agents
+* Add an agent
+* Update an agent
+* Delete an agent
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Technical Requirements
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Use Create React App
+* Use `fetch` for async HTTP
+* You are not allowed to change the Field Agent HTTP Service or database (unless there's a confirmed bug and your instructor approves)
+* Use a CSS framework
