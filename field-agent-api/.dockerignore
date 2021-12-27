@@ -1,0 +1,7 @@
+# just in case
+.git
+# IntelliJ
+.idea
+*.iml
+# Docker artifacts
+Dockerfile*
