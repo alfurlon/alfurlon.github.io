@@ -1,0 +1,9 @@
+@url = http://localhost:8080/api
+
+POST {{url}}/authenticate
+Content-Type: application/json
+
+{
+    "username": "john@smith.com",
+    "password": "P@ssw0rd!"
+}
